@@ -3,7 +3,7 @@
 #include<time.h>
 #define NUM 21
 void selectionSort(int arr[]);
-int binary_search(int arr[], int target, int low, int high, int *cnt);
+int binary_search(int arr[], int target, int *cnt);
 int main(void){
 	int i,j, input,index, cnt=0;
 	int randNum[NUM];
@@ -23,7 +23,7 @@ int main(void){
 	
 	printf("\nInput NUM: ");
 	scanf("%d", &input); 
-	index=binary_search(randNum, input, 0, NUM-1, &cnt);
+	index=binary_search(randNum, input, &cnt);
 	
 	if(index!=-1) printf("Index: %d, Number of Comparison: %d", index, cnt);
 	else printf("NOT FOUND, Number of Comparison: %d", cnt);
@@ -44,14 +44,16 @@ void selectionSort(int arr[]){
 	}
 }
 
-int binary_search(int arr[], int target, int low, int high, int *cnt){
+int binary_search(int arr[], int target, int *cnt){
+	int low=0, high=NUM-1;
 	int mid;
-	(*cnt)++; // cnt 포인터의 주소에 있는 값 증가, 괄호 풀면 포인터를 증가시키는 것이므로 주의
 	
-	if(low > high) return -1; // 탐색 실패, 순환 탈출 
-	mid = (low+high)/2;
-	
-	if(target==arr[mid]) return mid; // 탐색 성공, 순환 탈출 
-	else if(arr[mid]> target) return binary_search(arr, target, low, mid-1, cnt);
-	else return binary_search(arr, target, mid+1, high, cnt); // 47Line에서 함수 선언할때와는 다르게 함수를 호출하는것이므로 포인터 * 를 붙이면 안되는 것으로 보임. 
+	while(low<=high){
+		(*cnt)++; // cnt 포인터의 주소에 있는 값 증가, 괄호 풀면 포인터를 증가시키는 것이므로 주의  
+		mid=(low+high)/2;
+		if(target==arr[mid]) return mid; // 탐색 성공, 위치 반환 
+		else if(target<arr[mid]) high= mid-1; // 위쪽 버리고 다시 탐색
+		else low= mid+1; //아래 버리고 다시 탐색 
+	}
+	return -1; //NOT FOUND
 }
