@@ -12,12 +12,12 @@ int main(void){
 	
 	for(i=0;i<NUM;i++){
 		randNum[i]= rand()% 40+ 61;
-		for(j=0;j<i;j++){ // Áßº¹ ¼ö ¹èÁ¦ 
-			if(randNum[i] == randNum[j]) i--; // »ı¼ºµÈ ³­¼ö¿Í ¹è¿­¿¡ ÀúÀåµÇ¾î ÀÖ´Â °ª ºñ±³ÇØ¼­ °°À¸¸é ´Ù½Ã ³­¼ö »ı¼º   
+		for(j=0;j<i;j++){ // ì¤‘ë³µ ìˆ˜ ë°°ì œ 
+			if(randNum[i] == randNum[j]) i--; // ìƒì„±ëœ ë‚œìˆ˜ì™€ ë°°ì—´ì— ì €ì¥ë˜ì–´ ìˆëŠ” ê°’ ë¹„êµí•´ì„œ ê°™ìœ¼ë©´ ë‹¤ì‹œ ë‚œìˆ˜ ìƒì„±   
 		}
 	}
 	
-	selectionSort(randNum); // ¿À¸§Â÷¼ø Á¤·ÄÇÏ±â
+	selectionSort(randNum); // ì˜¤ë¦„ì°¨ìˆœ ì •ë ¬í•˜ê¸°
 	
 	for(i=0;i<NUM;i++) printf("%d ", randNum[i]);
 	
@@ -46,12 +46,12 @@ void selectionSort(int arr[]){
 
 int binary_search(int arr[], int target, int low, int high, int *cnt){
 	int mid;
-	(*cnt)++; // cnt Æ÷ÀÎÅÍÀÇ ÁÖ¼Ò¿¡ ÀÖ´Â °ª Áõ°¡, °ıÈ£ Ç®¸é Æ÷ÀÎÅÍ¸¦ Áõ°¡½ÃÅ°´Â °ÍÀÌ¹Ç·Î ÁÖÀÇ
+	(*cnt)++; // cnt í¬ì¸í„°ì˜ ì£¼ì†Œì— ìˆëŠ” ê°’ ì¦ê°€, ê´„í˜¸ í’€ë©´ í¬ì¸í„°ë¥¼ ì¦ê°€ì‹œí‚¤ëŠ” ê²ƒì´ë¯€ë¡œ ì£¼ì˜
 	
-	if(low > high) return -1; // Å½»ö ½ÇÆĞ, ¼øÈ¯ Å»Ãâ 
+	if(low > high) return -1; // íƒìƒ‰ ì‹¤íŒ¨, ìˆœí™˜ íƒˆì¶œ 
 	mid = (low+high)/2;
 	
-	if(target==arr[mid]) return mid; // Å½»ö ¼º°ø, ¼øÈ¯ Å»Ãâ 
+	if(target==arr[mid]) return mid; // íƒìƒ‰ ì„±ê³µ, ìˆœí™˜ íƒˆì¶œ 
 	else if(arr[mid]> target) return binary_search(arr, target, low, mid-1, *cnt);
-	else return binary_search(arr, target, *cnt, mid+1, high, *cnt);
+	else return binary_search(arr, target, mid+1, high, *cnt);
 }
